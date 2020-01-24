@@ -3,15 +3,19 @@ package com.gardenlab.sampleevent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private View view1;
     private View view2;
+    private ScrollView scrollView;
     GestureDetector gestureDetector;
 
     @Override
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         view1 = findViewById(R.id.view1);
         view2 = findViewById(R.id.view2);
+        scrollView = findViewById(R.id.scrollView);
 
         view1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -86,10 +91,22 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            Toast.makeText(this, "시스템 [Back] 버튼이 눌렸습니다.", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
     }
 
     public void println(String data) {
         textView.append(data+"\n");
+        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
 
